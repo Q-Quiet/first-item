@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+        *{ padding:0; margin:0; list-style:none; border:0;}
+        .all{
+            width:550px;
+            height:350px;
+            padding:7px;
+            border:1px solid #ccc;
+            margin-top:20px;
+            position:relative;
+        }
+
+        .screen{
+            width:550px;
+            height:350px;
+			overflow:hidden;
+			position:relative;
+		}
+        .screen li{
+        	width:550px;
+        	height:350px;
+        	overflow:hidden;
+        	float:left;
+        }
+		.screen ul{
+			position:absolute;
+			left:0; top:0px; width:3000px;
+		}
+		.all ol{
+			position:absolute;
+			right:10px;
+			bottom:10px;
+			line-height:20px;
+			text-align:center;
+		}
+        .all ol li{
+    	    float:left;
+   	     	width:20px;
+  		    height:20px;
+    	    background:#fff;
+    	    border:1px solid #ccc;
+       		margin-left:10px;
+       		cursor:pointer;
+        }
+        .all ol li.current{
+       		background:#ff95ca;
+    	}
+    	#arr {
+    		display: none;
+    	}
+    	#arr span{
+    	width:40px;
+    	height:40px;
+    	position:absolute;
+    	left:5px;
+    	top:50%;
+    	margin-top:-20px;
+    	background:#000;
+    	cursor:pointer;
+    	line-height:40px;
+    	text-align:center;
+    	font-weight:bold;
+    	font-family:'黑体';
+    	font-size:30px;
+    	color:#fff;
+    	opacity:0.3;
+    	border:1px solid #fff;
+    	}
+    	#arr #right1{
+    	right:5px;
+    	left:auto;
+    	}
+
+
+    	body{
+    		background:url('背景梅花.png');
+    	}
+    	#header{
+    		float: left;
+    		width: 100%;
+    		background-color: #FFC97B;
+    		/*opacity: .4;*/
+    		background: rgba(0,0,0,0.4);
+    		font-size: 70pt;
+    	}
+    	#footer{
+    		float: left;
+    		width: 100%;
+    		background-color: #FFDEB2;
+    		opacity:.4;
+    		font-size: 18pt;
+    		font-weight: bold;
+    		text-align: center;
+    		position: relative;
+    	}
+    	#right{
+    		position: relative;
+    		float: right;
+    		text-align:left;
+    		width:30%;
+    		margin-right: 5%;
+    	}
+    	#left{
+    		position: relative;
+    		float:left;
+    		text-align: left;
+    		width: 60%;
+    		margin-top: 160px;
+    	}
+
+
+    	html,body{height: 100%;width: 100%;}
+	body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{margin:0;padding:0} 
+
+	a{color:#2d374b;text-decoration:none} 
+	a:hover{color:#cd0200;text-decoration:underline} 
+	em{font-style:normal} 
+	li{list-style:none} 
+	img{border:0;vertical-align:middle} 
+	table{border-collapse:collapse;border-spacing:0} 
+	p{word-wrap:break-word}
+	#content { 
+	width: 100%;
+	height: 100%; 
+	top: 0px;
+	overflow: hidden; 
+	position: absolute; 
+	}
+	#snowflake { 
+	width: 100%; 
+	height: 100%; 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	overflow: hidden; 
+	}
+	.snowRoll { 
+	position: absolute; 
+	opacity: 0; 
+	-webkit-animation-name: mysnow; 
+	-webkit-animation-duration: 20s; 
+	-moz-animation-name: mysnow; 
+	-moz-animation-duration: 20s; 
+	height: 80px; 
+}
+	@-webkit-keyframes mysnow {  
+	0% {
+	 bottom: 100%;
+	}
+	 50% {
+	 -webkit-transform: rotate(1080deg);
+	}
+	 100% {
+	 -webkit-transform: rotate(0deg) translate3d(50px, 50px, 50px);
+	}
+	}
+	@-moz-keyframes mysnow {  
+	0% {
+	 bottom: 100%;
+	}
+	 50% {
+	 -moz-transform: rotate(1080deg);
+	}
+	 100% {
+	 -moz-transform: rotate(0deg) translate3d(50px, 50px, 50px);
+	}
+	}
+	</style>
+   	<script>
+   		window.onload = function () {
+   		var screen = document.getElementById("screen");
+   		var ul = screen.children[0];
+   		var ol = screen.children[1];
+   		var div = screen.children[2];
+   		var imgWidth = screen.offsetWidth;        
+   		var tempLi = ul.children[0].cloneNode(true);
+   		ul.appendChild(tempLi);            //3
+   		for(var i = 0; i < ul.children.length - 1; i++) {
+   		    var newOlLi = document.createElement("li");
+   		    newOlLi.innerHTML = i + 1;
+   		    ol.appendChild(newOlLi);
+   		}
+   		var olLiArr = ol.children;
+   		olLiArr[0].className = "current";         
+   		for(var i = 0, len = olLiArr.length; i < len; i++) {
+   		olLiArr[i].index = i;
+   		olLiArr[i].onmouseover = function (ev) {
+   		for(var j = 0; j < len; j++) {
+   		olLiArr[j].className = "";
+   		}
+   		this.className = "current";
+   		key = square = this.index;
+   		animate(ul, -this.index * imgWidth);
+   		}
+   		}       
+   		var key = 0;
+   		var square = 0;
+   		var timer = setInterval(autoPlay, 2400);
+   		screen.onmouseover = function (ev) {
+   		    clearInterval(timer);
+   		    div.style.display = "block";
+   		}
+   		    screen.onmouseout = function (ev) {
+   		    timer = setInterval(autoPlay, 2400);
+   		    div.style.display = "none";
+		}          
+		var divArr = div.children;
+		divArr[0].onclick = function (ev) {
+		key--;
+		if(key < 0) { 
+		ul.style.left = -(ul.children.length-1) * imgWidth + "px";
+		key = 4;
+		}
+		animate(ul, -key * imgWidth);
+		square--;
+		if(square < 0) {
+		square = 4;
+		}
+		for(var k = 0; k < len; k++) {
+		olLiArr[k].className = "";
+		}
+		olLiArr[square].className = "current";
+		}
+		divArr[1].onclick = autoPlay;
+		function autoPlay() {
+		key++;  
+		if(key > ul.children.length - 1) {
+		    ul.style.left = 0;
+		    key = 1;
+		}		 
+		animate(ul, -key * imgWidth);
+		square++;
+		if(square > 4) {
+		square = 0;
+		}
+		for(var k = 0; k < len; k++) {
+		olLiArr[k].className = "";
+		}
+		olLiArr[square].className = "current";
+		}
+		function animate(ele,target){
+		clearInterval(ele.timer);
+		var speed = target>ele.offsetLeft?10:-10;
+		ele.timer = setInterval(function () {
+		var val = target - ele.offsetLeft;
+		ele.style.left = ele.offsetLeft + speed + "px";
+		if(Math.abs(val)<Math.abs(speed)){
+		ele.style.left = target + "px";
+		clearInterval(ele.timer);
+		}
+		}
+		,10)
+		}
+		}    
+	</script>
+
+	<title>重游长安，知是长安路</title>
+</head>
+<body>
+
+	 <div id='content'>
+        <!-- 飘花 -->
+        <div id="snowflake"></div>
+    </div>
+	
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.transit.js"></script>
+	<script type="text/javascript">
+	$(function() {
+        var snowflakeURl = [
+            './images/icon_petal_1.png',
+            './images/icon_petal_2.png',
+            './images/icon_petal_3.png',
+            './images/icon_petal_4.png',
+            './images/icon_petal_5.png',
+            './images/icon_petal_6.png',
+            './images/icon_petal_7.png',
+            './images/icon_petal_8.png'
+        ]  
+        var container = $("#content");
+           visualWidth = container.width();
+           visualHeight = container.height();
+    　　//获取content的宽高
+        function snowflake() {
+            // 雪花容器
+            var $flakeContainer = $('#snowflake');
+    　　　　　　
+            // 随机六张图
+            function getImagesName() {
+                return snowflakeURl[[Math.floor(Math.random() * 8)]];
+            }
+            // 创建一个雪花元素
+            function createSnowBox() {
+                var url = getImagesName();
+                return $('<div class="snowbox" />').css({
+                    'width': 25,
+                    'height': 26,
+                    'position': 'absolute',
+                    'backgroundRepeat':'no-repeat',
+                    'zIndex': 100000,
+                    'top': '-41px',
+                    'backgroundImage': 'url(' + url + ')'
+                }).addClass('snowRoll');
+            }
+            // 开始飘花
+            setInterval(function() {
+                // 运动的轨迹
+                var startPositionLeft = Math.random() * visualWidth - 100,
+                    startOpacity    = 1,
+                    endPositionTop  = visualHeight - 40,
+                    endPositionLeft = startPositionLeft - 100 + Math.random() * 500,
+                    duration        = visualHeight * 10 + Math.random() * 5000;
+                // 随机透明度，不小于0.5
+                var randomStart = Math.random();
+                randomStart = randomStart < 0.5 ? startOpacity : randomStart;
+                // 创建一个雪花
+                var $flake = createSnowBox();
+                // 设计起点位置
+                $flake.css({
+                    left: startPositionLeft,
+                    opacity : randomStart
+                });
+                // 加入到容器
+                $flakeContainer.append($flake);
+                // 开始执行动画
+                $flake.transition({
+                    top: endPositionTop,
+                    left: endPositionLeft,
+                    opacity: 0.7
+                }, duration, 'ease-out', function() {
+                    $(this).remove() //结束后删除
+                });
+            }, 500);
+        }
+         snowflake()
+    　　　//执行函数
+    })
+	</script>
+
+
+	<div id="header">. </div>
+
+<!-- <div class="all" id='all'>
+	   <div class="screen" id="screen">
+	        <ul id="ul">
+	        	<li><img src="王昭君1.jpg" width="600" height="350" /></li>
+	            <li><img src="卫青1.jpg" width="600" height="350" /></li>
+	            <li><img src="吕雉1.jpg" width="600" height="350" /></li>
+	            <li><img src="李广1.jpg" width="600" height="350" /></li>
+	            <li><img src="董仲舒1.jpg" width="600" height="350" /></li> 
+
+	        </ul>
+	        <ol>
+	        </ol> 
+	        <div id="arr">
+	        <span id="left1">西</span>
+	        <span id="right1">汉</span>
+	        </div>
+	    </div>
+	</div>
+ -->
+
+<div id="left">
+<p><img src="卫青.jpg" alt="这是卫青" width="140px" height="125px" style="padding-left: 120px" align="left" />
+	<p>&nbsp&nbsp&nbsp&nbsp卫青（？－前106年），字仲卿，长平烈侯，汉武帝时期皇后卫子夫的异父弟，本名郑青，因为卫子夫的缘故冒姓卫。任大司马大将军，封长平侯，是击溃匈奴的西汉名将。卫青六击匈奴。身为大司马大将军，位极人臣，卫青却从不养士。卫青的一生共七次率兵出击匈奴，他喜士退让，能与士卒同甘共苦，作战骁勇，深受将士爱戴。其中淮南王刘安的谋士伍被对卫青的评价尤其之高，称其‘才干绝人，众将皆为其所用’。卫青去世，汉武帝命人在自己的茂陵东为卫青修建了一座‘庐山’形状的墓冢，以象征卫青一生的赫赫战功。<br/><br/><br/><br/>
+	</p>
+<p><img src="吕雉.jpg" alt="这是吕雉" width="140px" height="125px" style="padding-left: 120px" align="left" />
+	&nbsp&nbsp&nbsp&nbsp吕雉（公元前241年－公元前180年8月18日），字娥姁，通称吕后，或称汉高后、吕太后等。后世把她与唐朝的武则天并称为“吕武”。吕雉是汉高祖刘邦任亭长时所娶元配妻子,是中国历史上有记载的第一位皇后和皇太后,同时也是秦始皇统一中国，实行皇帝制度之后，第一个临朝称制的女性，被司马迁列入记录帝王政事的本纪。吕后掌政期间能重用人材，并废除秦以来的一些苛法，尤以废除三族罪和妖言令为百姓所称道。
+	<br/><br/><br/><br/><br/>
+</p>
+<p><img src="李广.jpg" alt="这是李广" width="140px" height="125px" style="padding-left: 120px" align="left" />
+&nbsp&nbsp&nbsp&nbsp 李广，一生与匈奴交战四十余年，大小七十余战，凭借一身盖世武功，杀敌无数，匈奴人畏其英勇，称之为“飞将军”。李广关外狩猎时射石虎的故事家喻户晓，使得李广成了后世神射手的代名词之一，但李广一生都没有被封过侯。前129年李广战败全军覆没而且被俘，后来夺弓掠马逃出。李广、公孙敖因为战败被廷尉提审，按军法当斩，付赎金后，废为庶人。后，匈奴入侵辽西，杀死太守，并打败镇守渔阳的韩安国。汉武帝重新起用李广镇守右北平，匈奴人敬畏李广的威名，几年内没有骚扰辽西地区。
+<br/><br/><br/><br/>
+</p>
+<p><img src="董仲舒.jpg" alt="这是董仲舒" width="140px" height="125px" style="padding-left: 120px" align="left" />
+&nbsp&nbsp&nbsp&nbsp 董仲舒（前192年－前104年），是西汉著名的经学家、思想家和政治家。他治学以公羊学为主，因此于景帝年间任为博士，于武帝时受赏识任江都相等职位。董仲舒整合了当时的阴阳五行学说、天命论等各类思想哲论，统一为汉代的天人关系的研究，也借他在西汉政治体制内的参与推动了谶纬之学的发展。董仲舒其学以儒家宗法思想为中心，建议以“弱枝”或“小末”的方式严禁王侯大臣擅权，杂以阴阳五行说，把神权、君权、父权、夫权贯串在一起，形成帝制神学体系，流行于汉代的谶纬都是继承了董仲舒的感应、灾异之说。
+<br/><br/><br/><br/>
+</p>
+<p><img src="王昭君.jpg" alt="这是王昭君" width="140px" height="125px" style="padding-left: 120px" align="left" />
+&nbsp&nbsp&nbsp&nbsp 王昭君（前51年－前15年），名嫱，字昭君。汉元帝时期的宫女、和亲女性，古代四大美人的落雁，成语中“沉鱼落雁”、“画工弃市”记载她的生平典故。著有传世作品《报汉元帝书》、《怨词》。西汉到元帝，国势已日趋转弱，因而汉匈得以维持了友善信赖关系，于昭君出塞后的数十年间，是由于和亲提供的生养契机。呼韩邪单于结束了匈奴多年的战乱，并寻求附和汉廷，也学习汉人的典章制度，对于双方交流建立良好的基础。所以后代诗人赵介认为昭君出塞的功绩，不输于名将卫青霍去病。昭君和亲，于民族间团结和谐的促进，作出伟大的贡献。
+<br/><br/><br/>
+</p>
+</div>
+
+<div id="right">
+	<br/><br/><br/><br/>
+	<p style="color: pink;font-size: 55px">长安不见使人愁</p>
+	<div style="width: 220px;height: 220px;border-radius: 100%;overflow: hidden;margin: 0px 50px 0px auto;opacity: .6">
+		<img src="鸽子.jpg">
+	</div>
+<br/><br/>
+<div class="all" id='all'>
+	   <div class="screen" id="screen">
+	        <ul id="ul">
+	        	<li><img src="王昭君1.jpg" width="550" height="350" /></li>
+	            <li><img src="卫青1.jpg" width="550" height="350" /></li>
+	            <li><img src="吕雉1.jpg" width="550" height="350" /></li>
+	            <li><img src="李广1.jpg" width="550" height="350" /></li>
+	            <li><img src="董仲舒1.jpg" width="550" height="350" /></li> 
+
+	        </ul>
+	        <ol>
+	        </ol> 
+	        <div id="arr">
+	        <span id="left1">西</span>
+	        <span id="right1">汉</span>
+	        </div>
+	    </div>
+	</div>
+
+</div>
+
+<div id="footer">
+		<a href="about.html">about our team</a>
+</div>
+</body>
+</html>
