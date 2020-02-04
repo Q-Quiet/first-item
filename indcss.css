@@ -1,0 +1,345 @@
+body{
+            position: relative;
+        }
+        a{
+            text-decoration: none;
+        }
+        .container {
+            position: relative;
+            width: 1519px;
+            height: 700px;
+            margin:0 auto 0 auto;
+            overflow: hidden;
+        }
+        .container .wrap {
+            position: absolute;
+            width: 10633px;
+            height: 700px;
+            z-index: 1; 
+        }
+        .container .wrap img {
+            float: left;
+            width: 1519px;
+            height: 700px;
+        }
+        .container .buttons {
+            position: absolute;
+            right: 55px;
+            bottom:200px;
+            width: 150px;
+            height: 10px;
+            z-index: 2;
+        }
+        .container .buttons span {
+            margin-left: 5px;
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: grey;
+            text-align: center;
+            color:white;
+            cursor: pointer;
+        }
+        .container .buttons span.on{
+            background-color: white;
+        }
+        .container .arrow {
+            position: absolute;
+            top: 35%;
+            color: grey;
+            padding:0px 14px;
+            border-radius: 50%;
+            font-size: 50px;
+            z-index: 2;
+            display: none;
+        }
+        .container .arrow_left {
+            left: 10px;
+        }
+        .container .arrow_right {
+            right: 10px;
+        }
+        .container:hover .arrow {
+            display: block;
+        }
+        .container .arrow:hover {
+            background-color: rgba(0,0,0,0.2);
+        }
+
+
+
+
+
+        #logo{
+    		width: 100px;
+    		height: 100px;
+    		margin-top: -60px;
+    	}
+    	#logoPic{
+    		height: 100%;
+    		width: 100%;
+    	}
+    	.float{
+    		height: 500px;
+    		width: 1000px;
+    		position: absolute;
+    		top: 40px;
+    		left:50%;
+    		margin-left: -500px;
+    		background-color: rgba(28,28,28,0.7);
+    		display: none;
+    	}
+    	.float:hover{
+    		display: block;
+    	}
+        #float2{
+        }
+    	#li1:hover + #float1 {
+    		display: block;
+    	}
+    	#li2:hover + #float2{
+    		display: block;
+    	}
+        #li3:hover + #float3{
+        	display: block;
+        }
+        #li4:hover + #float4{
+        	display: block;		
+        }
+        #float4{
+        	height:600px;
+        }
+        #float4 .son{
+        	height: 280px;		
+        }
+    	.son{
+    		width: 280px;
+    		height: 440px;
+    		margin:30px 25px;
+    		float: left;
+    	}
+    	.column{
+    		width: 280px;
+    		height: 80px;
+    		position: relative;
+    		word-break:break-all;
+            word-wrap:break-word; 
+    	}
+    	.titlee{
+    		color: #EA7500;
+    		font-size: larger;
+    	}
+    	.smaller{
+    		width: 100px;
+    		height: 80px;
+    	}
+    	.posRight{
+    		position: absolute;
+    		top:10px;
+            color: white;
+    	}
+    	.parag{
+    		color: 	#CFCFCF;
+    	}
+    	#bigPicture{
+    		height: 260px;
+    		width: 278px;
+
+    	}
+    	.smaller3{
+    		width: 120px;
+    		height: 80px;
+    		float: left;
+    		margin-right: 15px;
+    		margin-top:20px;
+    	}
+    	.circle{
+    		border-radius: 25px;
+    	}
+    	#tiaocontainer{
+    		height: 100px;
+    		width: 980px;
+            position: absolute;
+            bottom:170px;
+    	}
+    	#tiaocontainer1{
+    		height: 50px;
+    		width: 980px;
+            position: absolute;
+            bottom:120px;
+
+            display: flex;
+            flex-direction: row;
+            align-items:center;
+            justify-content:center;
+    	}
+    	#tiaocontainer2{
+    		height: 100px;
+    		width: 980px;
+            position: absolute;
+            bottom:20px;
+    	}
+    	.tip{
+    		width: 40px;
+    		height: 3px;
+    		background-color: #EDEDED;
+    		opacity: 0.3;
+    	}
+        .spot{
+        	width: 12px;
+        	height: 12px;
+        	border-radius: 50%;
+        	background-color: #EDEDED;
+        	opacity: 0.8;
+        }
+        .bigspot{
+        	height:22px;
+        	width: 22px;
+        	display: flex;
+        	align-items: center;
+        	justify-content: center;
+        	background-color: #EA7500;
+        }
+        .sonspot{
+        	width: 10px;
+        	height: 10px;
+        	background-color:red;
+        	border-radius: 50%;
+            background-color: grey;
+        }
+        *{
+    padding: 0;
+    margin: 0;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+li{
+    list-style: none;
+}
+header{
+     
+    width: 100%;
+    height: 800px;
+     
+    background-size:100%;
+    position: relative;
+}
+header img{
+    width: 100%;
+    height: 850px;
+}
+.banner{
+    
+
+    width: 775px;
+    height: 40px;
+    display: flex;
+    box-sizing: border-box;
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translate(-50%);
+
+    background: linear-gradient(to right, rgba(255,255,255, 0.05) , white , rgba(255,255,255, 0.05) );
+    z-index: 10;
+ 
+ 
+}
+ 
+.banner li{
+  flex: 1;
+  text-align: center;
+  line-height: 40px;
+}
+.banner li:hover{
+    background-color: #666666;
+    
+}
+.banner li:hover a{
+    color: white;
+}
+ 
+.footerbox{
+    width: 100%;
+    height: 30px;
+    position: relative;
+    background-color: #666666;
+     
+}
+.footerbox .footerin {
+    width: 840px;
+    height: 40px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 30px;
+    
+}
+#foots{
+	height: 200px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+    background:url(images/bottom.jpg);
+}
+.footson{
+	height: 200px;
+	width: 300px;
+}
+.cimg1div{
+	height: 60px;
+	width: 60px;
+	border-radius: 50%;
+    position:absolute;
+    bottom:0;
+}
+.dcimg1div{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    position:absolute;
+    top:0;
+}
+.cimg{
+    height:100%;
+    width:100%;
+    border-radius:50%;
+}
+.dcimg{
+    height:100%;
+    width:100%;
+    border-radius:50%;
+}
+#cimg1{
+    left:10%;
+}
+#cimg2{
+    left:28%;
+}
+#cimg3{
+    left:72.5%;
+}
+#dcimg1{
+    left:21.5%;
+}
+#dcimg2{
+    left:60.5%;
+}
+#dcimg3{
+    left:89.4%;
+}
+.footpic{
+    height:100%;
+    width:100%;
+}
+#yangro{
+    width: 278px;
+    height: 260px;
+}
+.clo{
+    height: 100%;
+    width: 100%;
+}
