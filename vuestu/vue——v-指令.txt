@@ -1,0 +1,193 @@
+## vue基础
+
+### 前端框架与库的区别？
+
+ - jquery库->DOM（操作DOM）+请求
+ - art-template库->模板引擎
+ - 框架=全方位功能齐全
+ 		- 简易的DOM体验+发送请求+模板引擎+路由功能
+ - KFC的世界里，库就是一个小套餐，框架就是全家桶
+ - 代码是的不同
+ 		1. 一般使用库的代码，是调用某个函数，我们自己把控库的代码
+ 		2. 一般使用框架，其框架在帮我们运行我们编好的代码
+ 			
+ 				 框架：初始化自身的一些行为
+ 				     执行你所编写的代码
+ 				     释放一些资源
+
+## Vue.js 优点
+#### 1. 体积小
+压缩后33k；
+#### 2. 更高的运行效率
+基于虚拟Dom，一种可以预先通过JavaScript进行各种计算，把最终的DOM操作计算出来并优化的技术，由于这个DOM操作属于预处理操作，并没有真正的操作DOM，所以叫做虚拟DOM。
+#### 3.双向数据绑定
+让开发者不用再去操作dom对象，把更多的精力投入到业务逻辑上。
+#### 4.生态丰富、学习成本低
+
+## Vue的使用步骤
+#### 1.引包：
+```js
+<script src="vue.js" type="text/javascript">
+</script>
+```
+#### 2.启动Vue    通过new Vue(options);
+#### 3.配置options选项对象
+#### 4.el：'目的地’ tempplate:'模板' data：function（）{ return { 要使用的key：数据 } }
+#### 5.页面中存在该目的地，目的地字符串描述，同jq方式一样
+```html
+	<div id="app">
+    </div>
+```
+```js
+	new Vue({
+        //el:发生行为的目的地
+        el:'#app',
+        //template：装载的模板
+        template:'<div><h1>大家好 {{text}} </h1></div>',
+        //在编写代码过程中要控制好格式
+        //动态数据的声明
+        data:function() { 
+            return {
+                text :'Hello Vue!'
+            } 
+        }
+    });
+```
+
+> 在vue内部运行机制中，需要根据你传递的字符串进行判断，比如：#xxx，.xxx，还是div  元素查找
+
+```js
+        el:document.getElementById('app'),
+        //更为优化，将元素直接找到，避免了vue来取判断
+```
+
+## Vue的文件介绍
+ 1. {{ 表达式 }}
+  	-  对象 (不要连续三个{{ {name:'jack'} }})
+  	- 字符串 {{ ’xxx' }}
+  	- 判断后的布尔值 {{ true }}
+  	- 三元表达式 {{ true?'是正确':’错误' )}
+  2. 可用于页面中简单粗暴的调试
+  3. ！！！：必须在data这个函数中返回对象中声明
+## 什么是指令？？
+- 在vue中提供了一些对于页面+数据更为方便的操作，这些操作就叫做指令，以v-xxx表示
+	- 类似于html页面中的属性 ```<div v-xxx ></div>```
+- 比如在angular中 以ng-xxx开头的就叫做指令
+- 在vue中 以v-xxx开头的就叫做指令
+- 指令中封装了一些DOM行为，## 什么是指令？？结合属性作为一个暗号，暗号有对应的值，根据不同的值，框架会进行相关DOM操作的绑定
+## vue中常用的v-指令演示
+- v-text 元素的innerText属性，必须是双标签
+- v-html 元素的innerHTML
+- v-if 判断是否插入这个元素
+- v-else-if
+- v-else
+- v-show 隐藏元素 如果确定要隐藏，会给元素的style加上display：none；
+```html
+
+    <div id="app">
+    </div>
+
+
+	 <script src="vue.js" type="text/javascript">
+    </script>
+
+    <script type="text/javascript">
+	new Vue({
+        el:'#app',
+        template:`
+            <div>
+                <span v-text="myText"></span>
+                <hr/>
+                <span v-html="myHtml"></span>
+                <button v-if="isExit">测试v-if</button>
+                <!--以下三个指令的使用必须是相邻的DOM元素,中间不能加别的-->
+                <button v-if="num==1">测试v-if</button>
+                <button v-else-if="num==2">测试v-else-if</button>
+                <button v-else>测试v-else</button>
+                <hr/>
+                <button v-show="isShow">我是v-show</button>
+            </div>
+        `,
+        data:function () {
+            return {
+                myText:'<h1>我是v-text的值！</h1>',
+                myHtml:'<h1>我是v-html的值！</h1>',
+                isExit:true,
+                // 如果值为false会出现<!---->
+                num:3,
+                isShow:flase
+                //不只隐藏自己的
+            }
+        }
+    });
+    
+    </script>
+```
+- v-bind使用
+	- 给元素的属性赋值```<div file="{{变量}}“></div>```
+		- 可以给已经存在的属性赋值 input value
+		- 也可以给自定义属性赋值 mydata
+	- 语法 在元素上```v-bind:属性名=“变量||变量名```
+	- 简写形式```：属性名=”变量名“```
+
+	>v-bind单向数据流
+	
+- v-on的使用
+	- 处理自定义原生事件的，给按钮添加click并让使用变量的样式改变
+	- 在元素上```v-on:原生事件名=”使变量进行操作"```
+	- 简写形式：```@原生事件名="使变量进行操作”```
+	```js
+	new Vue({
+        el:'#app',
+        template:`
+            <div>
+                <input type="text" v-bind:value="myValue" 
+                :file="  'xxx'   " />
+                <hr/>
+                <button v-on:click=" myValue='abc' ">
+                点我改变myValue</button>
+                <button @click=" myValue='def' ">
+                简写改变myValue</button>
+            </div>
+                //" ："是绑定属性，   " @ "绑定事件
+        `,
+        data:function () {
+            return {
+                myValue:'hhhhhha'
+            }
+        }
+    });
+	```
+	![在这里插入图片描述](https://img-blog.csdnimg.cn/20191118223243961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1FfUXVpZXQ=,size_16,color_FFFFFF,t_70)
+
+- v-model 只能给具备value属性的元素进行双向数据绑定（必须使用的是有value属性）
+```js
+	new Vue({
+        el:'#app',
+        template:`
+            <div>
+                <input type="text" v-model="myValue" />
+                当用户输入xxxx的时候，显示下面的button
+                <button v-show="myValue== 'xxxx' ">用户输入的是xxxx</button>
+            </div>
+        `,
+        data:function () {
+            return {
+                myValue:'hhhhhha'
+            }
+        }
+    });
+```
+> v-bind 和 v-model 的区别
+> - `input v-model = "name"`
+>		- 双向数据绑定 页面对于input的value改变，能影响内存中name变量
+>		- 内存js改变name的值，会影响页面重新渲染最新值
+> - `input ：value="name”`
+> 		- 单向数据绑定 内存改变影响页面改变
+>  v-model：其的改变影响其他 v-bind：其改变不影响其他
+>  v-bind 就是对属性的简单赋值，当内存中值改变，还是会触发重新渲染
+
+- v-on的使用
+	- 处理自定义原生事件的，给按钮添加click并让使用变量的样式改变
+	- 普通使用`v-on : 事件名=“表达式||函数名`
+	- 间歇方式`@事件名=”表达式`
